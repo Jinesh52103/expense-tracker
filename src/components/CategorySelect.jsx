@@ -30,9 +30,7 @@ export default function CategorySelect({ value, onChange }) {
       <select id="category" value={value} onChange={onChange} className="w-full p-2 border border-purple-400 rounded-md">
         <option>Select Category</option>
         {categories.map(cat => (
-          <div>
           <option key={cat} value={cat}>{cat}</option>
-          </div>
         ))}
       </select>
 

@@ -10,6 +10,12 @@ function App() {
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState([])
 
+  function handleDelete(index) {
+  const newData = expenses.filter((_, i) => i !== index);
+  setExpenses(newData);
+}
+
+
   return (
     <div className="bg-gray-300 p-6 rounded-lg shadow-lg max-w-3xl mx-auto mt-10">
       <Header />
@@ -26,6 +32,7 @@ function App() {
     {console.log("App is passing expenses to List:", expenses)}
       <List 
       data={expenses}
+      handleDelete={handleDelete}
       />
     </div>
   )

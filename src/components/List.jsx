@@ -1,4 +1,4 @@
-export default function List({ data }) {
+export default function List({ data, handleDelete }) {
   console.log("List component received:", data);
   return (
     <div className="mt-6 overflow-x-auto rounded-lg shadow-md bg-white">
@@ -24,7 +24,7 @@ export default function List({ data }) {
               <td className="px-4 py-2">${data.amount}</td>
               <td className="px-4 py-2">{data.category}</td>
               <td className="px-4 py-2">{data.expense}</td>
-              <td className="px-4 py-2 text-center">🗑️</td>
+              <td className="px-4 py-2 text-center" onClick={() => handleDelete(index)}>🗑️</td>
             </tr>
           ))}
         </tbody>
