@@ -29,7 +29,7 @@ function App() {
                 setData={setExpenses}
             />
             <BudgetSummary
-                income={income}
+                income={income - totalExpenses}
                 expenses={totalExpenses}
             />
             {console.log("App is passing expenses to List:", expenses)}
