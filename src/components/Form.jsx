@@ -4,7 +4,7 @@ import ExpenseForm from "./ExpenseForm"
 import CategorySelect from "./CategorySelect"
 
 
-export default function Form({setData}){
+export default function Form({setData, totalSpent}){
 
   const [formData, setFormData] = useState({
     expense : "",
@@ -19,6 +19,14 @@ export default function Form({setData}){
       [e.target.id] : e.target.value
 
     }})
+  }
+
+  function checkEmptyInput(){
+    if(formData.amount === "" || formData.expense === "" || formData.date === "" || formData.category === ""){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 
@@ -57,8 +65,13 @@ export default function Form({setData}){
       <button
       className="text-white hover:bg-purple-800 w-full p-2 border border-purple-400 rounded-md mt-4"
       onClick={() => {
-      setData(prev => [...prev, formData]);
-      setFormData({ expense: "", amount: "", date: "", category: "" });
+       if (checkEmptyInput()) {
+        alert("Fill in all inputs");
+        return;
+      }
+        setData(prev => [...prev, formData]);
+        setFormData({ expense: "", amount: "", date: "", category: "" });
+      
       }}
 
       >Add Expense</button>
