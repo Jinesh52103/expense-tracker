@@ -4,7 +4,7 @@ import ExpenseForm from "./ExpenseForm"
 import CategorySelect from "./CategorySelect"
 
 
-export default function Form({setData, totalSpent}){
+export default function Form({setData, totalSpent, refreshExpenses}){
 
   const [formData, setFormData] = useState({
     expense : "",
@@ -28,6 +28,26 @@ export default function Form({setData, totalSpent}){
       return false;
     }
   }
+
+  function sendData() {
+  fetch("http://localhost:5000/expenses", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(res => res.json())
+    .then(() => {
+      refreshExpenses(); // call backend again to get updated list
+      setFormData({ expense: "", amount: "", date: "", category: "" });
+    })
+    .catch(err => {
+      alert("Error saving expense");
+      console.error(err);
+    });
+}
+
 
 
     return(
@@ -69,8 +89,7 @@ export default function Form({setData, totalSpent}){
         alert("Fill in all inputs");
         return;
       }
-        setData(prev => [...prev, formData]);
-        setFormData({ expense: "", amount: "", date: "", category: "" });
+        sendData()
       
       }}
 

@@ -24,7 +24,7 @@ export default function List({ data, handleDelete }) {
               <td className="px-4 py-2">${data.amount}</td>
               <td className="px-4 py-2">{data.category}</td>
               <td className="px-4 py-2">{data.expense}</td>
-              <td className="px-4 py-2 text-center cursor-pointer" onClick={() => handleDelete(index)}>🗑️</td>
+              <td className="px-4 py-2 text-center cursor-pointer" onClick={() => handleDelete(data._id)}>🗑️</td>
             </tr>
           ))}
         </tbody>

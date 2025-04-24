@@ -2,6 +2,32 @@ import {useState} from 'react'
 
 export default function IncomeInput({setIncome, income}){
     const [inputValue, setInputValue] = useState('');
+
+    function handleClick(){
+        fetch("http://localhost:5000/income", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ amount: Number(inputValue) }),
+})
+  .then(res => res.json())
+  .then(() => {
+
+    fetch("http://localhost:5000/income")
+      .then(res => res.json())
+      .then(data => {
+        const total = data.reduce((acc, item) => acc + item.amount, 0);
+        setIncome(total);
+      });
+    setInputValue('');
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error saving income");
+  });
+
+    }
     
 
     return(
@@ -19,11 +45,7 @@ export default function IncomeInput({setIncome, income}){
             />
             <button 
                 className="text-white bg-purple-700 hover:bg-purple-800 w-full p-2 border border-purple-400 rounded-md mt-4"
-                onClick={() => {
-                    const addedIncome = Number(inputValue)
-                    setIncome(income + addedIncome)
-                    setInputValue('')
-                }}>
+                onClick={handleClick}>
                     Add Income
             </button> 
         </div>
